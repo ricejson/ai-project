@@ -86,6 +86,7 @@ def demo_tools():
             result = tool.run("10 + 5 * 2")
         print(f"🔍 工具测试结果：{result}\n")
 
+# ===== 4. 简化版 Agents =====
 def demo_simple_agents():
     """
     演示简化版 Agents：手动工具选择和执行
@@ -129,6 +130,57 @@ def demo_simple_agents():
             result = "未找到合适的工具"
         print(f"🔍 工具执行结果：{result}\n")
 
+# ===== 5. Memory 记忆系统 =====
+def demo_memeory():
+    """
+    演示 Memory：对话记忆管理
+    LangChain 特点：自动管理对话历史
+    """
+    print("=" * 50)
+    print("🧠 Memory 演示：记忆系统")
+    print("=" * 50)
+    # 简化版记忆管理方式
+    conversation_history = []
+    # 带有记忆的提示词模板
+    memory_prompt = ChatPromptTemplate.from_messages([
+        ("system", "你是一个友好的助手，能够记住之前的对话内容，以下是对话历史:{history}"),
+        ("human", "{input}")]
+    )
+
+    memory_chain = memory_prompt | llm
+
+    # 模拟多轮对话
+    conversations = [
+        "我叫张三，今年25岁",
+        "我喜欢编程和阅读",
+        "你还记得我的名字吗？",
+        "我的爱好是什么？"
+    ]
+
+    for i, user_prompt in enumerate[str](conversations, 1):
+        print(f"👤 第{i}轮对话：{user_prompt}")
+
+        # 拼接对话历史
+        history_str = "\n".join([f"用户: {h['user']}\n助手: {h['assistant']}" for h in conversation_history])
+        
+        # 获取回复
+        response = memory_chain.invoke({
+            "history": history_str,
+            "input": user_prompt
+        })
+        
+        # 助手回复
+        print(f"🤖 助手回复：{response.content}\n")
+        
+        # 更新对话历史
+        conversation_history.append({
+            "user": user_prompt,
+            "assistant": response.content
+        })
+        
+        # 显示当前记忆内容
+        print(f"💭 当前记忆：{len(conversation_history)} 轮对话")
+        print("-" * 30)
 
 
 def main():
@@ -139,6 +191,7 @@ def main():
         demo_llm_chain()
         demo_tools()
         demo_simple_agents()
+        demo_memeory()
     except Exception as e:
         print(f"❌ 演示过程中出现错误：{str(e)}")
         print("请检查 API 密钥和网络连接")
