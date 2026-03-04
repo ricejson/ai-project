@@ -182,6 +182,35 @@ def demo_memeory():
         print(f"💭 当前记忆：{len(conversation_history)} 轮对话")
         print("-" * 30)
 
+# ===== 6. LCEL LangChain Expression Language =====
+def demo_lcel():
+    """
+    演示LECE: LangChain 0.3 新特性，链式组合语法
+    """
+    print("=" * 50)
+    print("🔗 LCEL 演示：LangChain Expression Language")
+    print("=" * 50)
+    # LCEL 语法：使用 | 管道符组合组件
+    prompt = PromptTemplate.from_template("请用{language}语言解释什么是{concept}")
+    # 创建链
+    chain = prompt | llm
+    # 调用链
+    result = chain.invoke({
+        "language": "简单易懂的中文",
+        "concept": "区块链"
+    })
+    print(f"📝 LCEL 链式调用结果：\n{result.content}\n")
+    # 演示更复杂的链结构
+    from langchain_core.output_parsers import StrOutputParser
+    # 创建输出解析器
+    output_parser = StrOutputParser()
+    # 更复杂的链
+    complex_chain = prompt | llm | output_parser
+    result2 = complex_chain.invoke({
+        "language": "技术术语",
+        "concept": "机器学习"
+    })
+    print(f"📝 复杂 LCEL 链结果：\n{result2}\n")
 
 def main():
     """主函数：依次演示各个核心组件"""
@@ -192,6 +221,7 @@ def main():
         demo_tools()
         demo_simple_agents()
         demo_memeory()
+        demo_lcel()
     except Exception as e:
         print(f"❌ 演示过程中出现错误：{str(e)}")
         print("请检查 API 密钥和网络连接")
