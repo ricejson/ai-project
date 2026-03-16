@@ -28,3 +28,6 @@
 * Callback：回调组件
 * LCEL：LangChain Expression Language，| 链式语法
 
+### LangChain MCP
+1. 安装依赖：pip install langchain-mcp-adapters
+
