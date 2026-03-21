@@ -208,3 +208,8 @@ __marimo__/
 
 # env
 .env
+
+.DS_Store
+
+# test.py
+.test.py
