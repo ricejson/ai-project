@@ -15,3 +15,15 @@
   1. 使用对应类：AIMessage、HumanMessage、SystemMessage，
   2. 用元组()，动态运行时会替换为方式一，但是能够进行模版提示词替换
 * langchain提供了两种嵌入模型API：1、embed_query 单次转换，2、embed_documents 批量转换
+
+## langchain提供的三种提示词模板
+目前 langchain 支持三种提示词模板：
+1. PromptTemplate 通用提示词模板
+2. FewShotPromptTemplate 少样本提示词模板
+3. ChatPromptTemplate 聊天提示词模板
+
+### 注意点：
+* 三种对象都同时具有 invoke 方法（继承runnable接口）和 format 方法（继承BasePromptTemplate）
+  1. invoke 方法返回PromptValue对象，format 方法返回字符串
+  2. invoke 方法入参传递字典对象进行注入，format 方法则是通过=参数赋值
+  3. invoke 方法不仅支持{}注入，还支持 MessagesPlaceHolder 注入用于ChatPromptTemplate
