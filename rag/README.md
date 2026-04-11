@@ -27,3 +27,9 @@
   1. invoke 方法返回PromptValue对象，format 方法返回字符串
   2. invoke 方法入参传递字典对象进行注入，format 方法则是通过=参数赋值
   3. invoke 方法不仅支持{}注入，还支持 MessagesPlaceHolder 注入用于ChatPromptTemplate
+
+## langchain 提供的chain机制
+chain 是 langchain 框架提供的把多个组件串联起来协同工作的方式，前一个组件的输出结果会作为下一个组件的输入
+* 使用方式：通过 | 运算符
+* 组成 chain 的各个组件必须实现 Runnable 接口
+* chain 通过 Runnable 接口的 invoke or stream 方法进行触发
