@@ -33,3 +33,9 @@ chain 是 langchain 框架提供的把多个组件串联起来协同工作的方
 * 使用方式：通过 | 运算符
 * 组成 chain 的各个组件必须实现 Runnable 接口
 * chain 通过 Runnable 接口的 invoke or stream 方法进行触发
+
+## 输出解析器
+输出解析器本质上也是一个 Runnable 实现类，能够入chain，适合构建多模型应用
+* StrOutputParser：能够将 AIMessage -> str 类型
+* JsonOutputParser：能够将 AIMessage -> Dict 类型
+* 除此以外我们还可以使用 RunnableLambda 提供自定义的转换器
