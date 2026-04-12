@@ -6,7 +6,6 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 background_prompt = PromptTemplate.from_template("你需要根据历史会话回答问题，历史会话：{history}, 用户提问：{input}，请回答")
-question_prompt = PromptTemplate.from_template("一共有多少只小动物？")
 
 model = ChatTongyi(model="qwen3-max")
 
